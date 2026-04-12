@@ -1,30 +1,19 @@
-# — Core data layer —
-duckdb==0.10.1
-pandas==2.2.1
-numpy==1.26.4
-pydantic==2.6.4
-
-# — Ingestion API (Stage 2) —
-fastapi==0.110.1
-uvicorn[standard]==0.29.0
-
-# — UI —
-gradio==4.26.0
-plotly==5.20.0
-
-# — Benchmarking: CPU (GGUF) —
-llama-cpp-python==0.2.57
-
-# — Utilities —
-psutil==5.9.8
-rich==13.7.1
-python-dotenv==1.0.1
-
-# — Testing —
-pytest==8.1.1
-pytest-asyncio==0.23.6
-
-# GPU deps — install separately on Colab:
-# pip install transformers==4.40.0 accelerate==0.29.2
-# pip install auto-gptq==0.7.1 autoawq==0.2.4
-# pip install torch==2.2.1 --index-url https://download.pytorch.org/whl/cu121
+# Core data layer
+duckdb
+pandas
+numpy
+pydantic
+ 
+# API
+fastapi
+uvicorn
+ 
+# UI
+gradio
+plotly
+ 
+# Utilities
+psutil
+rich
+python-dotenv
+ 
