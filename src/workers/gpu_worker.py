@@ -118,9 +118,11 @@ def _load_awq(model_id: str, device: str):
 
     tokenizer = AutoTokenizer.from_pretrained(model_id, trust_remote_code=False)
     model = AutoAWQForCausalLM.from_quantized(
-        model_id, fuse_layers=True, trust_remote_code=False, safetensors=True
+        model_id,
+        fuse_layers=False,       # fuse_layers=True crashes in autoawq>=0.2.7
+        trust_remote_code=False,
     )
-    model.to(device)
+    model = model.to(device)
     return model, tokenizer, device
 
 
