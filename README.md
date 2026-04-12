@@ -3,11 +3,10 @@ title: LLM Benchmark Platform
 emoji: 🔬
 colorFrom: blue
 colorTo: indigo
-sdk: gradio
-sdk_version: 4.26.0
-app_file: app.py
+sdk: docker
 pinned: false
 ---
+
 # 🔬 LLM Benchmark Platform
 
 > A data platform for comparing quantized LLM inference performance across real hardware.

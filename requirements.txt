@@ -2,7 +2,10 @@ duckdb
 pandas
 numpy
 pydantic
+gradio==4.26.0
 plotly
 psutil
 rich
 python-dotenv
+fastapi
+uvicorn
