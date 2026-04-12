@@ -2,9 +2,6 @@ duckdb
 pandas
 numpy
 pydantic
-fastapi
-uvicorn
-gradio==4.44.1
 plotly
 psutil
 rich
