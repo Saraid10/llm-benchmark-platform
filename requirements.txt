@@ -1,19 +1,11 @@
-# Core data layer
 duckdb
 pandas
 numpy
 pydantic
- 
-# API
 fastapi
 uvicorn
- 
-# UI
-gradio
+gradio==4.44.1
 plotly
- 
-# Utilities
 psutil
 rich
 python-dotenv
- 
