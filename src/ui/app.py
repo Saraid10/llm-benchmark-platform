@@ -266,6 +266,16 @@ def build_app() -> gr.Blocks:
 
     with gr.Blocks(
         title="LLM Benchmark Platform",
+        theme=gr.themes.Base(
+            primary_hue   = gr.themes.colors.blue,
+            secondary_hue = gr.themes.colors.slate,
+        ),
+        css="""
+        .stat-box { text-align: center; padding: 12px; border-radius: 8px;
+                    background: #1e293b; color: #e2e8f0; }
+        .stat-num  { font-size: 2em; font-weight: bold; color: #3b82f6; }
+        #rec-panel { background: #0f172a; border-radius: 8px; padding: 16px; }
+        """,
     ) as app:
 
         # — Header —
@@ -466,7 +476,6 @@ python scripts/load_seed_data.py --raw-dir data/raw/
 
 
 if __name__ == "__main__":
-    # Delete stale DB so seed loads fresh after any schema fix
     import os
     if os.path.exists("data/benchmarks.duckdb"):
         os.remove("data/benchmarks.duckdb")
@@ -483,14 +492,4 @@ if __name__ == "__main__":
         server_name = "0.0.0.0",
         server_port = 7860,
         share       = False,
-        theme = gr.themes.Base(
-            primary_hue   = gr.themes.colors.blue,
-            secondary_hue = gr.themes.colors.slate,
-        ),
-        css="""
-        .stat-box { text-align: center; padding: 12px; border-radius: 8px;
-                    background: #1e293b; color: #e2e8f0; }
-        .stat-num  { font-size: 2em; font-weight: bold; color: #3b82f6; }
-        #rec-panel { background: #0f172a; border-radius: 8px; padding: 16px; }
-        """,
     )
