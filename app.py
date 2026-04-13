@@ -74,4 +74,4 @@ Compare quantized LLM performance · **{stats['total_records']} records · {stat
               inputs=[hw_ram, hw_gpu, hw_vram, sel_quants, sel_models, max_mem],
               outputs=[table, chart1, chart2])
 
-demo.launch(server_port=7860)
+demo.launch()

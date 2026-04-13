@@ -4,7 +4,6 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 
-# Install exact versions known to work together
 RUN pip install --no-cache-dir \
     "jinja2==3.1.4" \
     "huggingface_hub==0.23.4" \
@@ -22,5 +21,8 @@ RUN pip install --no-cache-dir \
 COPY . .
 RUN mkdir -p data/raw data/versions
 ENV PYTHONPATH=/app
+ENV GRADIO_SERVER_NAME=0.0.0.0
+ENV GRADIO_SERVER_PORT=7860
+ENV GRADIO_ANALYTICS_ENABLED=False
 EXPOSE 7860
 CMD ["python", "app.py"]
