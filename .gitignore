@@ -16,8 +16,10 @@ env/
 # Database (generated — do not commit)
 data/benchmarks.duckdb
 data/benchmarks.duckdb.wal
-data/versions/
-data/current_version.json
+
+# Track version manifests
+!data/versions/
+!data/current_version.json
 data/raw/*.json
 data/archive/
 

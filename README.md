@@ -6,13 +6,13 @@ colorTo: indigo
 sdk: docker
 pinned: false
 ---
-[![Live Demo](https://img.shields.io/badge/🤗%20Live%20Demo-HuggingFace-blue)](https://huggingface.co/spaces/Saraid10/llm-benchmark-platform)
+
 # 🔬 LLM Benchmark Platform
 
 > A data platform for comparing quantized LLM inference performance across real hardware.
 > GGUF · GPTQ · AWQ · CPU · GPU · Edge
 
-[![HF Spaces](https://img.shields.io/badge/🤗%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/YOUR_USERNAME/llm-benchmark-platform)
+[![HF Spaces](https://img.shields.io/badge/🤗%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/Saraid10/llm-benchmark-platform)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://python.org)
 [![DuckDB](https://img.shields.io/badge/database-DuckDB-yellow)](https://duckdb.org)
 
@@ -53,7 +53,7 @@ Gradio UI (pure presentation, HF Spaces)
 ## Quickstart
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/llm-benchmark-platform
+git clone https://github.com/Saraid10/llm-benchmark-platform
 cd llm-benchmark-platform
 pip install -r requirements.txt
 

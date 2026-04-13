@@ -1,0 +1,4 @@
+# CPU benchmark worker — GGUF models via llama-cpp-python
+-r requirements-dev.txt
+# Install with: CMAKE_ARGS="-DLLAMA_CUBLAS=off" pip install llama-cpp-python
+# llama-cpp-python==0.2.57

@@ -105,7 +105,8 @@ class BenchmarkRepository:
 
                 -- Pipeline metadata
                 is_outlier           BOOLEAN DEFAULT FALSE,
-                pipeline_version     TEXT    DEFAULT '1.0.0'
+                pipeline_version     TEXT    DEFAULT '1.0.0',
+                data_source          TEXT    DEFAULT 'real'
             )
         """)
 
@@ -194,6 +195,10 @@ class BenchmarkRepository:
                 df["is_outlier"] = df["is_outlier"].map(
                     lambda v: str(v).strip().lower() in ("true", "1", "yes")
                 )
+            # Add data_source if missing
+            if "data_source" not in df.columns:
+                df = df.copy()
+                df["data_source"] = "seed"
             conn.execute("""
                 INSERT INTO benchmarks
                 SELECT
@@ -206,7 +211,7 @@ class BenchmarkRepository:
                     n_runs::INTEGER, status,
                     timestamp::TIMESTAMP, prompt_hash, seed::INTEGER,
                     python_version, framework, cuda_version, driver_version,
-                    is_outlier::BOOLEAN, pipeline_version
+                    is_outlier::BOOLEAN, pipeline_version, data_source
                 FROM df
             """)
             return len(df)

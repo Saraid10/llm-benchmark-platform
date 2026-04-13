@@ -237,8 +237,43 @@ with gr.Blocks(title="LLM Benchmark Platform", css=CSS) as demo:
                 with gr.Tab("📋 Data Table"):
                     table = gr.DataFrame(wrap=True)
 
-    # ── Methodology accordion ──
-    with gr.Accordion("📖 Methodology & Reproducibility", open=False):
+    # ── Data Provenance ──
+    with gr.Accordion("🔍 Data Provenance", open=False):
+        gr.HTML(f"""
+        <div style='font-family:monospace;font-size:12px;color:#8b949e;line-height:1.8'>
+            <div style='display:grid;grid-template-columns:1fr 1fr;gap:16px'>
+                <div>
+                    <div style='color:#e6edf3;margin-bottom:8px;font-weight:600'>Dataset</div>
+                    <div>Version: <span style='color:#58a6ff'>2026.04.13.1</span></div>
+                    <div>Prompt hash: <span style='color:#58a6ff'>e3efec0e5fcd0b22</span></div>
+                    <div>Seed records: <span style='color:#3fb950'>25</span> (synthetic baseline)</div>
+                    <div>Real records: <span style='color:#3fb950'>{stats['total_records'] - 25}</span> (collected runs)</div>
+                </div>
+                <div>
+                    <div style='color:#e6edf3;margin-bottom:8px;font-weight:600'>Methodology</div>
+                    <div>Warmup: 1 run (discarded)</div>
+                    <div>Measured: 3 runs (averaged)</div>
+                    <div>Tokens: 256 completion</div>
+                    <div>Temp: 0.0 · Seed: 42</div>
+                </div>
+                <div>
+                    <div style='color:#e6edf3;margin-bottom:8px;font-weight:600'>Data Sources</div>
+                    <div><span style='color:#e3b341'>seed</span> — baseline synthetic data</div>
+                    <div><span style='color:#3fb950'>real_colab_t4</span> — Colab T4 GPU runs</div>
+                    <div><span style='color:#58a6ff'>real_cpu</span> — local CPU runs</div>
+                </div>
+                <div>
+                    <div style='color:#e6edf3;margin-bottom:8px;font-weight:600'>Outlier Detection</div>
+                    <div>Method: IQR (1.5× rule)</div>
+                    <div>Grouping: model × quant × hw</div>
+                    <div>Flagged rows excluded from UI</div>
+                </div>
+            </div>
+            <div style='margin-top:16px;padding-top:12px;border-top:1px solid #30363d'>
+                Reproduce: <a href='https://github.com/Saraid10/llm-benchmark-platform' style='color:#58a6ff'>github.com/Saraid10/llm-benchmark-platform</a>
+            </div>
+        </div>
+        """)
         gr.Markdown(f"""
 ```
 Prompt set    : 5 standardized prompts · SHA256: e3efec0e5fcd0b22

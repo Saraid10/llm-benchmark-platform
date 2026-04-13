@@ -1,0 +1,4 @@
+# GPU benchmark worker — GPTQ/AWQ models (run on Colab T4)
+# pip install transformers accelerate autoawq
+# pip install auto-gptq --extra-index-url https://huggingface.github.io/autogptq-index/whl/cu121/
+# pip install torch --index-url https://download.pytorch.org/whl/cu121

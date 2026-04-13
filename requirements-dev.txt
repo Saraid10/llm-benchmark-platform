@@ -1,0 +1,6 @@
+# Development — local testing and API server
+-r requirements.txt
+fastapi
+uvicorn
+pytest
+pytest-asyncio
