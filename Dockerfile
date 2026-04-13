@@ -4,10 +4,12 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 
-# Install in exact order - huggingface_hub FIRST to prevent gradio upgrading it
-RUN pip install --no-cache-dir huggingface_hub==0.23.4
-RUN pip install --no-cache-dir "gradio==4.26.0"
+# Install exact versions known to work together
 RUN pip install --no-cache-dir \
+    "jinja2==3.1.4" \
+    "huggingface_hub==0.23.4" \
+    "gradio==4.26.0" \
+    "starlette==0.27.0" \
     duckdb \
     pandas \
     numpy \
