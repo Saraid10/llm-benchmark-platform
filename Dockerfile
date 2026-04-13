@@ -2,15 +2,21 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y \
-    git \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 
-# Pin huggingface_hub FIRST before gradio pulls in a newer version
-RUN pip install --no-cache-dir huggingface_hub==0.23.4
-
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Install exact known-good versions in correct order
+RUN pip install --no-cache-dir \
+    jinja2==3.1.2 \
+    huggingface_hub==0.23.4 \
+    gradio==4.26.0 \
+    duckdb \
+    pandas \
+    numpy \
+    pydantic \
+    plotly \
+    psutil \
+    rich \
+    python-dotenv
 
 COPY . .
 
@@ -20,4 +26,4 @@ ENV PYTHONPATH=/app
 
 EXPOSE 7860
 
-CMD ["python", "src/ui/app.py"]
+CMD ["python", "src/ui/app_hf.py"]
