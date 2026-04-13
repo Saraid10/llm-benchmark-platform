@@ -2,7 +2,8 @@ duckdb
 pandas
 numpy
 pydantic
-gradio==4.42.0
+gradio==4.44.1
+huggingface_hub==0.23.4
 plotly
 psutil
 rich
