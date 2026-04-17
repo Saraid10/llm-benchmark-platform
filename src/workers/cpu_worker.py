@@ -56,10 +56,11 @@ BENCHMARK_PROMPTS = [
     "Explain the concept of gradient descent in machine learning.",
     "Write a Python function to perform binary search on a sorted list.",
     "What are the key differences between supervised and unsupervised learning?",
-    "Describe the transformer architecture and why attention mechanisms are important.",
+    "Describe the transformer architecture and its importance.",
     "Summarize the main principles of object-oriented programming.",
 ]
 
+# PROMPT_HASH computed below
 PROMPT_HASH = hashlib.sha256(
     "\n".join(BENCHMARK_PROMPTS).encode()
 ).hexdigest()[:16]

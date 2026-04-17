@@ -148,7 +148,7 @@ class BenchmarkRepository:
                     ?, ?, ?, ?,
                     ?, ?, ?,
                     ?, ?, ?, ?,
-                    ?, ?
+                    ?, ?, ?
                 )
             """, [
                 d["model_id"], d["model_file"], d["quantization"],
@@ -169,6 +169,7 @@ class BenchmarkRepository:
                 d["cuda_version"], d["driver_version"],
 
                 d["is_outlier"], d["pipeline_version"],
+                d.get("data_source", "real"),
             ])
             return True
         except Exception as e:

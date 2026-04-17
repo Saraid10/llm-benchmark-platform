@@ -87,7 +87,7 @@ Results are downloaded as JSON and loaded with the same script above.
 
 | Parameter | Value |
 |---|---|
-| Prompt set | 5 standardized prompts (SHA256: `a1b2c3d4...`) |
+| Prompt set | 5 standardized prompts (SHA256: `e3efec0e5fcd0b22...`) |
 | Warm-up runs | 1 (discarded) |
 | Measured runs | 3 (averaged) |
 | Max tokens | 256 completion tokens |

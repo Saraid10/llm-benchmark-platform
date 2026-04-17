@@ -20,7 +20,10 @@ data/benchmarks.duckdb.wal
 # Track version manifests
 !data/versions/
 !data/current_version.json
+# Raw benchmark JSONs — excluded by default (large files)
+# To include sample evidence files, use: git add -f data/raw/filename.json
 data/raw/*.json
+!data/raw/.gitkeep
 data/archive/
 
 # Keep raw dir but not its contents

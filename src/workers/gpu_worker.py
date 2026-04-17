@@ -7,7 +7,7 @@ Designed to run in Google Colab with a T4 GPU (16 GB VRAM).
 Usage in Colab:
     !git clone <your-repo>
     %cd llm-benchmark-platform
-    !pip install -r requirements_colab.txt
+    !pip install -r requirements-worker-gpu.txt
 
     from src.workers.gpu_worker import run_benchmark
     from src.core.models import QuantizationType
@@ -54,7 +54,7 @@ BENCHMARK_PROMPTS = [
     "Explain the concept of gradient descent in machine learning.",
     "Write a Python function to perform binary search on a sorted list.",
     "What are the key differences between supervised and unsupervised learning?",
-    "Describe the transformer architecture and why attention mechanisms are important.",
+    "Describe the transformer architecture and its importance.",
     "Summarize the main principles of object-oriented programming.",
 ]
 

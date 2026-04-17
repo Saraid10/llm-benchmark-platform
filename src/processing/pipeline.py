@@ -187,6 +187,7 @@ class Enricher:
 
             is_outlier       = False,
             pipeline_version = "1.0.0",
+            data_source      = getattr(raw, "data_source", "real"),
         )
 
 

@@ -82,6 +82,11 @@ class RawBenchmarkResult(BaseModel):
     cuda_version:       Optional[str]     = None
     driver_version:     Optional[str]     = None
 
+    # — Pipeline metadata —
+    is_outlier:         bool  = False
+    pipeline_version:   str   = "1.0.0"
+    data_source:        str   = "real"  # seed | real_cpu | real_colab_t4
+
     @field_validator("tokens_per_sec", "latency_first_ms", "latency_avg_ms")
     @classmethod
     def must_be_finite(cls, v: float) -> float:
@@ -139,6 +144,7 @@ class ProcessedBenchmarkRecord(BaseModel):
     # — Pipeline metadata —
     is_outlier:         bool  = False
     pipeline_version:   str   = "1.0.0"
+    data_source:        str   = "real"  # seed | real_cpu | real_colab_t4
 
 
 # ---------------------------------------------------------------------------
