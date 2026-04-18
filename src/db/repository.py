@@ -308,6 +308,17 @@ class BenchmarkRepository:
         conn = self._connect()
         return conn.execute("SELECT COUNT(*) FROM benchmarks").fetchone()[0]
 
+    def get_source_counts(self) -> dict:
+        """Returns count per data_source: {'seed': 25, 'real_cpu': 3, ...}"""
+        conn = self._connect()
+        try:
+            rows = conn.execute(
+                "SELECT data_source, COUNT(*) FROM benchmarks GROUP BY data_source"
+            ).fetchall()
+            return {r[0]: r[1] for r in rows}
+        except Exception:
+            return {"seed": self.count()}
+
     def clear(self):
         """Wipe all records. Use with care."""
         conn = self._connect()

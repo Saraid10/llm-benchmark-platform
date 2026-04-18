@@ -57,6 +57,7 @@ body, .gradio-container { background: #0d1117 !important; color: #e6edf3 !import
 .gr-panel, .gr-box, .gr-form { background: #161b22 !important; border: 1px solid #30363d !important; }
 label, .gr-block-label { color: #8b949e !important; font-family: monospace !important; font-size: 11px !important; text-transform: uppercase !important; letter-spacing: 1px !important; }
 .gr-input, .gr-slider input { background: #0d1117 !important; border: 1px solid #30363d !important; color: #e6edf3 !important; }
+.sticky-recs { position: sticky; top: 16px; }
 footer { display: none !important; }
 """
 
@@ -324,11 +325,14 @@ def run_query(hw_preset, hw_ram, hw_has_gpu, hw_gpu_vram,
         <span style='color:{YELLOW}'>{profile.value}</span>
     </div>"""
 
-    # Hardware tier badge
+    # Hardware tier badge + compatibility hint
+    compat_hint = "GPU mode: AWQ / GPTQ recommended" if hw_has_gpu else "CPU mode: GGUF quantizations recommended"
+    compat_color = ORANGE if hw_has_gpu else BLUE
     tier_badge = f"""
     <div style='font-family:monospace;font-size:11px;color:{DIM};margin-top:6px'>
         Mapped tier: <span style='background:{BG2};border:1px solid {BORDER};
         border-radius:3px;padding:2px 8px;color:{BLUE}'>{profile.value}</span>
+        <span style='margin-left:10px;color:{compat_color}'>↳ {compat_hint}</span>
     </div>"""
 
     # Recommendations from filtered df
@@ -373,9 +377,12 @@ def run_query(hw_preset, hw_ram, hw_has_gpu, hw_gpu_vram,
 
 # ── Build UI ───────────────────────────────────────────────────────────────
 
-stats      = engine.get_db_stats()
-all_models = engine.get_available_models() or ["mistral-7b-v0.1","phi-3-mini","gemma-2b","llama-3.2-3b"]
-all_quants = engine.get_available_quantization_types() or ["GGUF_Q4_K_M","GGUF_Q4_0","AWQ_4BIT","GPTQ_4BIT"]
+stats        = engine.get_db_stats()
+source_counts = repo2.get_source_counts()
+seed_count   = source_counts.get("seed", 0)
+real_count   = sum(v for k, v in source_counts.items() if k != "seed")
+all_models   = engine.get_available_models() or ["mistral-7b-v0.1","phi-3-mini","gemma-2b","llama-3.2-3b"]
+all_quants   = engine.get_available_quantization_types() or ["GGUF_Q4_K_M","GGUF_Q4_0","AWQ_4BIT","GPTQ_4BIT"]
 
 with gr.Blocks(title="LLM Benchmark Platform", css=CSS) as demo:
 
@@ -393,13 +400,19 @@ with gr.Blocks(title="LLM Benchmark Platform", css=CSS) as demo:
 
     # Stats bar
     gr.HTML(f"""
-    <div style='display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px'>
+    <div style='display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px'>
         <div style='background:#161b22;border:1px solid #30363d;border-radius:6px;padding:12px;text-align:center'>
             <div style='font-size:2em;font-weight:700;color:#58a6ff;font-family:monospace'>{stats['total_records']}</div>
-            <div style='font-size:10px;color:#8b949e;text-transform:uppercase;letter-spacing:1px'>Records</div>
+            <div style='font-size:10px;color:#8b949e;text-transform:uppercase;letter-spacing:1px'>Total Records</div>
+            <div style='font-size:10px;color:#8b949e;margin-top:2px'>{seed_count} seed · {real_count} real</div>
         </div>
         <div style='background:#161b22;border:1px solid #30363d;border-radius:6px;padding:12px;text-align:center'>
-            <div style='font-size:2em;font-weight:700;color:#3fb950;font-family:monospace'>{stats['models']}</div>
+            <div style='font-size:2em;font-weight:700;color:#3fb950;font-family:monospace'>{real_count}</div>
+            <div style='font-size:10px;color:#8b949e;text-transform:uppercase;letter-spacing:1px'>Real Runs</div>
+            <div style='font-size:10px;color:#3fb950;margin-top:2px'>measured · verified</div>
+        </div>
+        <div style='background:#161b22;border:1px solid #30363d;border-radius:6px;padding:12px;text-align:center'>
+            <div style='font-size:2em;font-weight:700;color:#e6edf3;font-family:monospace'>{stats['models']}</div>
             <div style='font-size:10px;color:#8b949e;text-transform:uppercase;letter-spacing:1px'>Models</div>
         </div>
         <div style='background:#161b22;border:1px solid #30363d;border-radius:6px;padding:12px;text-align:center'>
@@ -461,8 +474,15 @@ with gr.Blocks(title="LLM Benchmark Platform", css=CSS) as demo:
 
         # ── Right: Recommendations (24%) ──
         with gr.Column(scale=3, min_width=240):
-            gr.HTML(f"<div style='font-size:10px;color:{DIM};text-transform:uppercase;letter-spacing:1px;margin-bottom:8px'>🏆 Recommendations</div>")
-            recs_panel = gr.HTML("<div style='color:#8b949e;font-size:12px;font-family:monospace'>Run a comparison to see recommendations.</div>")
+            gr.HTML(f"""
+            <div class='sticky-recs'>
+            <div style='font-size:10px;color:{DIM};text-transform:uppercase;letter-spacing:1px;margin-bottom:8px'>🏆 Recommendations</div>
+            </div>
+            """)
+            recs_panel = gr.HTML(
+                f"<div style='color:{DIM};font-size:12px;font-family:monospace;position:sticky;top:16px'>"
+                "Run a comparison to see recommendations.</div>"
+            )
 
     # Methodology
     with gr.Accordion("📖 Methodology & Data Provenance", open=False):
