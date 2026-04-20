@@ -319,7 +319,7 @@ def run_query(hw_preset, hw_ram, hw_has_gpu, hw_gpu_vram,
         Tier: <span style='color:{BLUE}'>{profile.value}</span> &nbsp;·&nbsp;
         Source: <span style='color:{GREEN}'>{src_label}</span> &nbsp;·&nbsp;
         Rows: <span style='color:{TEXT}'>{len(df)}</span> &nbsp;·&nbsp;
-        Version: <span style='color:{DIM}'>2026.04.13.1</span>
+        Version: <span style='color:{DIM}'>2026.04.18.1</span>
         &nbsp;&nbsp;
         <span style='color:{DIM}'>Mapped tier: </span>
         <span style='color:{YELLOW}'>{profile.value}</span>
