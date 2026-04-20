@@ -1,0 +1,41 @@
+{
+  "version_id": "2026.04.20.1",
+  "created_at": "2026-04-20T00:00:00Z",
+  "record_count": 32,
+  "seed_records": 25,
+  "real_cpu_records": 3,
+  "real_colab_t4_records": 4,
+  "model_ids": [
+    "Mistral-7B-v0.1-AWQ",
+    "Phi-3-mini-4k-instruct-AWQ",
+    "gemma-2b",
+    "gemma-2b-it",
+    "llama-3.2-3b",
+    "mistral-7b-v0.1",
+    "phi-3-mini"
+  ],
+  "hardware_profiles": [
+    "CPU_HIGH",
+    "CPU_LOW",
+    "CPU_MEDIUM",
+    "GPU_T4"
+  ],
+  "quantizations": [
+    "AWQ_4BIT",
+    "GGUF_Q4_0",
+    "GGUF_Q4_K_M",
+    "GGUF_Q5_K_M",
+    "GGUF_Q8_0",
+    "GPTQ_4BIT",
+    "GPTQ_8BIT"
+  ],
+  "changelog": "Added 2 real Colab T4 AWQ rows: gemma-2b-it and llama-3.2-3b.",
+  "prompt_hash": "e3efec0e5fcd0b22",
+  "data_hash": "e66c73e8c80946f8",
+  "parent_version": "2026.04.18.1",
+  "schema_version": 1,
+  "is_stable": true,
+  "benchmark_date": "2026-04-12 to 2026-04-20",
+  "source_notes": "Seed rows are synthetic baseline estimates. real_cpu rows measured on an 8GB laptop using llama-cpp-python. real_colab_t4 rows measured on Google Colab free T4 using autoawq with fuse_layers=False.",
+  "hardware_notes": "GPU_T4 = Google Colab free tier Tesla T4 16GB VRAM. AWQ throughput may underrepresent optimized fused AWQ performance because fuse_layers=False was used for compatibility."
+}
