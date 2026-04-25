@@ -56,7 +56,7 @@ def load_seed_csv(repo: BenchmarkRepository, csv_path: str = "data/seed_benchmar
         return 0
 
     n = repo.insert_from_dataframe(df)
-    console.print(f"[green]✓ Inserted {n} seed records into DuckDB[/green]")
+    console.print(f"[green]OK Inserted {n} seed records into DuckDB[/green]")
     return n
 
 
@@ -66,7 +66,7 @@ def load_raw_json_dir(repo: BenchmarkRepository, raw_dir: str):
     records  = pipeline.process_directory(raw_dir)
     if records:
         n = repo.insert_batch(records)
-        console.print(f"[green]✓ Inserted {n} processed records[/green]")
+        console.print(f"[green]OK Inserted {n} processed records[/green]")
     else:
         console.print("[yellow]No valid records found in raw directory.[/yellow]")
 

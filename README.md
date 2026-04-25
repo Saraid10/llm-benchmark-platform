@@ -99,7 +99,7 @@ CPU Worker (llama-cpp-python)    GPU Worker (autoawq, Colab T4)
 | Field | Values |
 |---|---|
 | `data_source` | `seed` · `real_cpu` · `real_colab_t4` |
-| Dataset version | `2026.04.20.2` (see `data/versions/`) |
+| Dataset version | `2026.04.25.1` (see `data/versions/`) |
 | Prompt hash | `e3efec0e5fcd0b22` (consistent across all workers, app, and DB) |
 
 Sample raw benchmark JSONs: [`data/examples/`](data/examples/)

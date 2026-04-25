@@ -252,7 +252,7 @@ class Pipeline:
 
         outliers = sum(1 for r in records if r.is_outlier)
         console.print(
-            f"[green]✓ Processed:[/green] {len(records)} records "
+            f"[green]OK Processed:[/green] {len(records)} records "
             f"({failed} failed, {outliers} outliers flagged)"
         )
 
@@ -278,7 +278,7 @@ class Pipeline:
                 r.hardware_profile,
                 f"{r.tokens_per_sec:.1f}",
                 f"{r.memory_used_mb:.0f}",
-                "⚠" if r.is_outlier else "✓",
+                "!" if r.is_outlier else "ok",
             )
 
         console.print(table)
