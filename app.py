@@ -1,5 +1,7 @@
 """HuggingFace Spaces entrypoint — Dark technical dashboard v3."""
-import sys, os
+import json
+import os
+import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
@@ -23,6 +25,20 @@ from src.core.models import HardwareSpec
 repo2  = BenchmarkRepository()
 engine = QueryEngine(repo2)
 mapper = HardwareMapper()
+
+
+def get_current_version() -> str:
+    """Read the active dataset version for UI display."""
+    version_path = Path("data/current_version.json")
+    try:
+        with open(version_path) as f:
+            data = json.load(f)
+        return str(data.get("current", "unknown"))
+    except Exception:
+        return "unknown"
+
+
+CURRENT_VERSION = get_current_version()
 
 # ── Palette ────────────────────────────────────────────────────────────────
 BG      = "#0d1117"
@@ -319,7 +335,7 @@ def run_query(hw_preset, hw_ram, hw_has_gpu, hw_gpu_vram,
         Tier: <span style='color:{BLUE}'>{profile.value}</span> &nbsp;·&nbsp;
         Source: <span style='color:{GREEN}'>{src_label}</span> &nbsp;·&nbsp;
         Rows: <span style='color:{TEXT}'>{len(df)}</span> &nbsp;·&nbsp;
-        Version: <span style='color:{DIM}'>2026.04.18.1</span>
+        Version: <span style='color:{DIM}'>{CURRENT_VERSION}</span>
         &nbsp;&nbsp;
         <span style='color:{DIM}'>Mapped tier: </span>
         <span style='color:{YELLOW}'>{profile.value}</span>
@@ -511,4 +527,17 @@ with gr.Blocks(title="LLM Benchmark Platform", css=CSS) as demo:
     reset_btn.click(fn=reset_filters, inputs=[],
                     outputs=[hw_preset, hw_ram, hw_gpu, hw_vram, sel_quants, sel_models, max_mem, data_src])
 
-demo.launch()
+def launch_app():
+    """Launch Gradio with explicit host/port for Hugging Face health checks."""
+    server_name = os.getenv("GRADIO_SERVER_NAME", "0.0.0.0")
+    server_port = int(os.getenv("PORT", os.getenv("GRADIO_SERVER_PORT", "7860")))
+    print(f"Launching Gradio on {server_name}:{server_port}", flush=True)
+    demo.launch(
+        server_name=server_name,
+        server_port=server_port,
+        show_api=False,
+    )
+
+
+if __name__ == "__main__":
+    launch_app()
